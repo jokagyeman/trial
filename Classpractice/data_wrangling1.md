@@ -57,17 +57,17 @@ gapminder[sample(nrow(gapminder),10),] # sample 10 rows randomly
 ```
 
 ```
-##          country continent year lifeExp      pop  gdpPercap
-## 373      Croatia    Europe 1952  61.210  3882229  3119.2365
-## 594       Greece    Europe 1977  73.680  9308479 14195.5243
-## 1698    Zimbabwe    Africa 1977  57.674  6642107   685.5877
-## 1252 Puerto Rico  Americas 1967  71.100  2648961  6929.2777
-## 650     Honduras  Americas 1957  44.665  1770390  2220.4877
-## 897      Liberia    Africa 1992  40.802  1912974   636.6229
-## 33       Algeria    Africa 1992  67.744 26298373  5023.2166
-## 1522    Tanzania    Africa 1997  48.466 30686889   789.1862
-## 862       Kuwait      Asia 1997  76.156  1765345 40300.6200
-## 455      Ecuador  Americas 2002  74.173 12921234  5773.0445
+##                country continent year lifeExp      pop gdpPercap
+## 387               Cuba  Americas 1962  65.246  7254373 5180.7559
+## 1329           Senegal    Africa 1992  58.196  8307920 1367.8994
+## 577              Ghana    Africa 1952  43.149  5581001  911.2989
+## 338        Congo, Rep.    Africa 1957  45.053   940458 2315.0566
+## 1573            Turkey    Europe 1952  43.585 22235677 1969.1010
+## 1533          Thailand      Asia 1992  67.298 56667095 4616.8965
+## 1687            Zambia    Africa 1982  51.821  6100407 1408.6786
+## 490  Equatorial Guinea    Africa 1997  48.245   439971 2814.4808
+## 1704          Zimbabwe    Africa 2007  43.487 12311143  469.7093
+## 1532          Thailand      Asia 1987  66.084 52910342 2982.6538
 ```
 
 ```r
@@ -141,22 +141,97 @@ levels(gapminder$continent) # names of levels of continent variable
 ## [1] "Africa"   "Americas" "Asia"     "Europe"   "Oceania"
 ```
 
+```r
+table(gapminder$continent) # count of the continent variable under various levels
+```
+
+```
+## 
+##   Africa Americas     Asia   Europe  Oceania 
+##      624      300      396      360       24
+```
+
 *************************************************************************************
 ## Exploring data using plots
 
-Now I explore the variables in the data set using plots.
+Now I explore the variables in the data set using r plots functions.
 
 
 ```r
 plot(lifeExp ~ year, gapminder) # This plots lifeExp against year without attaching data set.
 ```
 
-![](data_wrangling1_files/figure-html/pressure-1.png) 
+![](data_wrangling1_files/figure-html/unnamed-chunk-2-1.png) 
 
 ```r
 plot(gapminder$year, gapminder$lifeExp) # this gives the same plot
 ```
 
-![](data_wrangling1_files/figure-html/pressure-2.png) 
+![](data_wrangling1_files/figure-html/unnamed-chunk-2-2.png) 
 
+```r
+plot(lifeExp ~ gdpPercap, gapminder) 
+```
+
+![](data_wrangling1_files/figure-html/unnamed-chunk-2-3.png) 
+
+```r
+plot(lifeExp ~ log(gdpPercap), gapminder) # transforming the gdpPercap data for a better plot
+```
+
+![](data_wrangling1_files/figure-html/unnamed-chunk-2-4.png) 
+
+```r
+hist(gapminder$lifeExp) # histogram of the lifeExp variable for individual summaries
+```
+
+![](data_wrangling1_files/figure-html/unnamed-chunk-2-5.png) 
+
+```r
+barplot(table(gapminder$continent)) # barplot of the continents
+```
+
+![](data_wrangling1_files/figure-html/unnamed-chunk-2-6.png) 
+----------
+
+## Exploring data using ggplot2
+
+I now try out the plot functions of the ggplot2
+
+
+```r
+library(ggplot2) # call ggplot2 package
+
+p <- ggplot(gapminder, aes(x = gdpPercap, y = lifeExp)) # call the function for variable are being used in the plot.
+
+p + geom_point() # plots a scatter plot.
+```
+
+![](data_wrangling1_files/figure-html/unnamed-chunk-3-1.png) 
+
+```r
+p + scale_x_log10() + geom_point() # plots the scatter plot and logs the x varaible
+```
+
+![](data_wrangling1_files/figure-html/unnamed-chunk-3-2.png) 
+
+```r
+p <- p + scale_x_log10() 
+
+p + geom_point(aes(color = continent)) # gives a plot with color coding for the continents
+```
+
+![](data_wrangling1_files/figure-html/unnamed-chunk-3-3.png) 
+
+```r
+p + geom_point(alpha = 0.05)# alpha is used to control the transparency of the points in the plot. The lower the value of alpha the more transparent the points.
+```
+
+![](data_wrangling1_files/figure-html/unnamed-chunk-3-4.png) 
+
+```r
+p + geom_point(aes(color=continent), alpha = (1), size = 2) # we can determine the color, the transparency and the size of the points in the plot.
+```
+
+![](data_wrangling1_files/figure-html/unnamed-chunk-3-5.png) 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
