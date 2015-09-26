@@ -1,0 +1,44 @@
+---
+title: "Class work practice"
+author: "Jonathan Agyeman"
+date: "26 September 2015"
+output: 
+  html_document: 
+    keep_md: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Performing analysis on gapminder
+
+I first begin by calling the gapminder data and then exploring the data.
+
+```{r}
+library(gapminder)
+str(gapminder) # look at structure of data
+head(gapminder) #call top six rows
+tail(gapminder) #call last six rows
+gapminder[sample(nrow(gapminder),10),] # sample 10 rows randomly
+names(gapminder) # variable names of data set
+dim(gapminder) # dimension of data set
+summary(gapminder) # a quick summary of all the variables in the data set
+class(gapminder) # class of the data set
+class(gapminder$continent) # the class of continent variable
+nlevels(gapminder$continent) # number of levels the continent variable has
+levels(gapminder$continent) # names of levels of continent variable
+```
+
+*************************************************************************************
+## Exploring data using plots
+
+Now I explore the variables in the data set using plots.
+
+```{r pressure, echo= TRUE}
+plot(lifeExp ~ year, gapminder) # This plots lifeExp against year without attaching data set.
+
+plot(gapminder$year, gapminder$lifeExp) # this gives the same plot
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
