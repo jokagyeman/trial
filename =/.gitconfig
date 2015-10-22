@@ -1,0 +1,5 @@
+[credential]
+	helper = wincred
+[user]
+	name = Jonathan Agyeman
+	email = j.agyeman@stat.ubc.ca
